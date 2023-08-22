@@ -26,6 +26,11 @@ public class FilteringApples {
         List<Apple> greenApples2 = filterGreenApples(inventory, GREEN);
         System.out.println(greenApples2);
 
+        //3. 매개변수 받아 무거운 사과 필터링
+        //[Apple{weight=120, color='RED'}, Apple{weight=150, color='RED'}]
+        List<Apple> heavyApples = filterApplesByWeight(inventory, 100);
+        System.out.println(heavyApples);
+
     }
 
     //List를 받아 초록 사과 필터링
@@ -46,6 +51,17 @@ public class FilteringApples {
         List<Apple> result = new ArrayList<>();
         for (Apple apple : apples) {
             if (apple.getColor() == color)
+                result.add(apple);
+        }
+        return result;
+    }
+
+    //매개변수로 weight 받아 무거운 사과 필터링
+    //필터링 요구사항이 점점 많아 질수록 매개변수를 계속 추가해야 하는 일이 생긴다.
+    public static  List<Apple> filterApplesByWeight(List<Apple> apples, int weight) {
+        List<Apple> result = new ArrayList<>();
+        for (Apple apple : apples) {
+            if (apple.getWeight() > weight)
                 result.add(apple);
         }
         return result;
