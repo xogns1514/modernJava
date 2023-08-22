@@ -12,6 +12,7 @@ public class FilteringApples {
         List<Apple> inventory = Arrays.asList(
                 new Apple(80, GREEN),
                 new Apple(90, GREEN),
+                new Apple(200, GREEN),
                 new Apple(100, Color.RED),
                 new Apple(120, Color.RED),
                 new Apple(150, Color.RED)
@@ -36,6 +37,14 @@ public class FilteringApples {
         //3과 동일
         List<Apple> heavyApples2 = filter(inventory, new AppleWeightPredicate());
         System.out.println(heavyApples2);
+        //5. predicate를 이용한 초록 사과 필터링
+        //1과 동일
+        List<Apple> greenApples3 = filter(inventory, new AppleColorPredicate());
+        System.out.println(greenApples3);
+        //6. predicate를 이용한 무거운 사과와 초록 사과 필터링
+        //[Apple{weight=200, color='GREEN'}]
+        List<Apple> heavyAndGreenApples = filter(inventory, new AppleWeightAndColorPredicate());
+        System.out.println(heavyAndGreenApples);
 
     }
 
