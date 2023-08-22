@@ -40,6 +40,15 @@ public class FilteringApples {
         List<Apple> heavyApples2 = filterApples(inventory, FilteringApples::isHeavyApple);
         System.out.println(heavyApples2);
 
+        //5. 람다를 이용한 필터링
+        // 1번과 동일
+        List<Apple> greenApples3 = filterApples(inventory, (apple) -> "green".equals(apple.getColor()));
+        System.out.println(greenApples3);
+
+        //6. 람다를 이용한 필터링
+        // 2번과 동일
+        List<Apple> heavyApples3 = filterApples(inventory, (apple) -> apple.getWeight() > 100);
+        System.out.println(heavyApples3);
     }
 
     //for문을 이용한 초록 사과 필터링
