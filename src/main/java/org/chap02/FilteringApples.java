@@ -21,6 +21,11 @@ public class FilteringApples {
         List<Apple> greenApples = filterGreenApples(inventory);
         System.out.println(greenApples);
 
+        //2. 매개변수 받아 Color 필터링
+        //1과 동일
+        List<Apple> greenApples2 = filterGreenApples(inventory, GREEN);
+        System.out.println(greenApples2);
+
     }
 
     //List를 받아 초록 사과 필터링
@@ -30,6 +35,17 @@ public class FilteringApples {
         List<Apple> result = new ArrayList<>();
         for (Apple apple : apples) {
             if (apple.getColor() == GREEN)
+                result.add(apple);
+        }
+        return result;
+    }
+
+    //위 코드 개선안.
+    //매개변수로 Color을 받아 필터링. 재사용 가능하다
+    public static List<Apple> filterGreenApples(List<Apple> apples, Color color) {
+        List<Apple> result = new ArrayList<>();
+        for (Apple apple : apples) {
+            if (apple.getColor() == color)
                 result.add(apple);
         }
         return result;
