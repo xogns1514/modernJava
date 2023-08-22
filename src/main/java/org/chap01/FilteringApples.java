@@ -3,6 +3,7 @@ package org.chap01;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class FilteringApples {
     public static void main(String[] args) {
@@ -19,13 +20,25 @@ public class FilteringApples {
                 new Apple(100, "green")
         );
 
+        //1. for문 이용한 초록사과 필터링
         //[Apple{weight=20, color='green'}, Apple{weight=40, color='green'}, Apple{weight=110, color='green'}, Apple{weight=140, color='green'}, Apple{weight=100, color='green'}]
         List<Apple> greenApples = filterGreenApples(inventory);
         System.out.println(greenApples);
 
+        //2. for문 이용한 무거운 사과 필터링
         //[Apple{weight=110, color='green'}, Apple{weight=120, color='red'}, Apple{weight=140, color='green'}]
         List<Apple> heavyApples = filterHeavyApples(inventory);
         System.out.println(heavyApples);
+
+        //3. Predicate와 static 메서드를 이용한 사과 필터링
+        // 1번과 동일
+        List<Apple> greenApples2 = filterApples(inventory, FilteringApples::isGreenApple);
+        System.out.println(greenApples2);
+
+        //4. Predicate와 static 메서드를 이용한 무거운 사과 필터링
+        // 2번과 동일
+        List<Apple> heavyApples2 = filterApples(inventory, FilteringApples::isHeavyApple);
+        System.out.println(heavyApples2);
 
     }
 
@@ -50,6 +63,22 @@ public class FilteringApples {
         }
         return result;
     }
+
+    public static boolean isGreenApple(Apple apple) {return "green".equals(apple.getColor());}
+
+    public static boolean isHeavyApple(Apple apple) {return apple.getWeight() > 100;}
+
+    //Predicate를 이용한 사과 필터링
+    public static List<Apple> filterApples(List<Apple> inventory, Predicate<Apple> p) {
+        List<Apple> result = new ArrayList<>();//필터 사과 저장 리스트
+        for (Apple apple : inventory) {
+            if (p.test(apple)) {
+                result.add(apple);
+            }
+        }
+        return result;
+    }
+
     public static class Apple {
         private int weight;
 
