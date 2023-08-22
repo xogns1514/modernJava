@@ -3,6 +3,7 @@ package org.chap02;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static org.chap02.FilteringApples.Color.GREEN;
 
@@ -30,6 +31,11 @@ public class FilteringApples {
         //[Apple{weight=120, color='RED'}, Apple{weight=150, color='RED'}]
         List<Apple> heavyApples = filterApplesByWeight(inventory, 100);
         System.out.println(heavyApples);
+
+        //4. predicate을 이용한 무거운 사과 필터링
+        //3과 동일
+        List<Apple> heavyApples2 = filter(inventory, new AppleWeightPredicate());
+        System.out.println(heavyApples2);
 
     }
 
@@ -67,6 +73,16 @@ public class FilteringApples {
         return result;
     }
 
+    //predicate를 이용한 필터링
+    //요구사항에 맞는 predicate을 전달하여 재사용 가능하다.
+    public static List<Apple> filter(List<Apple> apples, ApplePredicate applePredicate) {
+        List<Apple> result = new ArrayList<>();
+        for (Apple apple : apples) {
+            if (applePredicate.test(apple))
+                result.add(apple);
+        }
+        return result;
+    }
     enum Color {
         RED,
         GREEN
@@ -101,6 +117,29 @@ public class FilteringApples {
         @Override
         public String toString() {
             return String.format("Apple{weight=%d, color='%s'}", weight, color);
+        }
+    }
+
+    interface ApplePredicate {
+        boolean test(Apple apple);
+    }
+
+    static class AppleColorPredicate implements ApplePredicate {
+        @Override
+        public boolean test(Apple apple) {
+            return apple.getColor() == Color.GREEN;
+        }
+    }
+    static class AppleWeightPredicate implements ApplePredicate {
+        @Override
+        public boolean test(Apple apple) {
+            return apple.getWeight() > 100;
+        }
+    }
+    static class AppleWeightAndColorPredicate implements ApplePredicate {
+        @Override
+        public boolean test(Apple apple) {
+            return apple.getWeight() > 100 && apple.getColor() == Color.GREEN;
         }
     }
 
