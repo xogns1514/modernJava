@@ -3,6 +3,7 @@ package org.chap04;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Dish {
     private final String name;
@@ -44,7 +45,22 @@ public class Dish {
 
     @Override
     public String toString() {
-        return name;
+        return "Dish{" +
+                "name='" + name + '\'' +
+                ", calories=" + calories +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass()!= o.getClass()) return false;
+        Dish dish = (Dish) o;
+        return Objects.equals(name, dish.name);//이름이 같다면 같은 것으로 판단
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 
     public static final List<Dish> menu = Arrays.asList(

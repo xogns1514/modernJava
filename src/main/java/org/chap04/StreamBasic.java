@@ -8,15 +8,31 @@ import java.util.stream.Collectors;
 
 public class StreamBasic {
     public static void main(String[] args) {
-        getLowCaloricDishesNamesInJava7(Dish.menu).forEach(System.out::println);
-        /*
-        결과
-        season fruit
-        rice
-         */
-        System.out.println("------------------------");
-        getLowCaloricDishesNamesInJava7(Dish.menu).forEach(System.out::println);
-        //위와 결과 동일
+//        getLowCaloricDishesNamesInJava7(Dish.menu).forEach(System.out::println);
+//        /*
+//        결과
+//        season fruit
+//        rice
+//         */
+//        System.out.println("------------------------");
+//        getLowCaloricDishesNamesInJava8(Dish.menu).forEach(System.out::println);
+//        //위와 결과 동일
+
+        List<String> collect = Dish.menu.stream()
+                .filter(dish -> dish.getCalories() < 400)
+                .sorted(Comparator.comparingInt(Dish::getCalories))
+                .map(Dish::getName)
+                .collect(Collectors.toList());
+        System.out.println("method reference");
+        System.out.println(collect);
+
+        List<String> collect1 = Dish.menu.stream()
+                .filter(dish -> dish.getCalories() < 400)
+                .sorted(Comparator.comparingInt(Dish::getCalories))
+                .map((Dish dish) -> dish.getName())
+                .collect(Collectors.toList());
+        System.out.println("lambda");
+        System.out.println(collect1);
     }
 
     public static List<String> getLowCaloricDishesNamesInJava7(List<Dish> dishes) {
@@ -39,6 +55,7 @@ public class StreamBasic {
             lowCaloricDishesNames.add(dish.getName());
         }
         return lowCaloricDishesNames;
+
     }
 
     //스트림을 이용
