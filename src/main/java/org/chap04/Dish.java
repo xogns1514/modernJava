@@ -45,10 +45,11 @@ public class Dish {
 
     @Override
     public String toString() {
-        return "Dish{" +
-                "name='" + name + '\'' +
-                ", calories=" + calories +
-                '}';
+//        return "Dish{" +
+//                "name='" + name + '\'' +
+//                ", calories=" + calories +
+//                '}';
+        return name;
     }
 
     @Override
