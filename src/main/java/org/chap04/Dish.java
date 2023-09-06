@@ -1,9 +1,9 @@
 package org.chap04;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
+import static java.util.Arrays.asList;
 
 public class Dish {
     private final String name;
@@ -64,7 +64,7 @@ public class Dish {
         return Objects.hash(name);
     }
 
-    public static final List<Dish> menu = Arrays.asList(
+    public static final List<Dish> menu = asList(
             new Dish("pork", false, 800, Dish.Type.MEAT),
             new Dish("beef", false, 700, Dish.Type.MEAT),
             new Dish("chicken", false, 400, Dish.Type.MEAT),
@@ -75,4 +75,17 @@ public class Dish {
             new Dish("prawns", false, 400, Dish.Type.FISH),
             new Dish("salmon", false, 450, Dish.Type.FISH)
     );
+
+    public static final Map<String, List<String>> dishTags = new HashMap<>();
+    static {
+        dishTags.put("pork", asList("greasy", "salty"));
+        dishTags.put("beef", asList("salty", "roasted"));
+        dishTags.put("chicken", asList("fried", "crisp"));
+        dishTags.put("french fries", asList("greasy", "fried"));
+        dishTags.put("rice", asList("light", "natural"));
+        dishTags.put("season fruit", asList("fresh", "natural"));
+        dishTags.put("pizza", asList("tasty", "salty"));
+        dishTags.put("prawns", asList("tasty", "roasted"));
+        dishTags.put("salmon", asList("delicious", "fresh"));
+    }
 }
