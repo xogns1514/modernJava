@@ -11,12 +11,12 @@ import static java.util.stream.Collectors.*;
 
 public class Partitioning {
     public static void main(String[] args) {
-        System.out.println("Dishes partitioned by vegetarian: " + partitionByVegeterian());
+        System.out.println("Dishes partitioned by vegetarian: " + partitionByVegetarian());
         System.out.println("Vegetarian Dishes by type: " + vegetarianDishesByType());
         System.out.println("Most caloric dishes by vegetarian: " + mostCaloricPartitionedByVegetarian());
 
     }
-    private static Map<Boolean, List<Dish>> partitionByVegeterian() {
+    private static Map<Boolean, List<Dish>> partitionByVegetarian() {
         return Dish.menu.stream().collect(partitioningBy(Dish::isVegetarian));
     }
 
