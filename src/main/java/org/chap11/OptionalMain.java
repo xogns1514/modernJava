@@ -1,5 +1,10 @@
 package org.chap11;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class OptionalMain {
     public String getCarInsuranceName1(Person1 person) {
         if(person != null) {
@@ -29,5 +34,21 @@ public class OptionalMain {
             return "Unknown";
         }
         return insurance.getName();
+    }
+
+    public String getCarInsuranceName(Optional<Person> person) {
+        return person.flatMap(Person::getCar)
+                .flatMap(Car::getInsurance)
+                .map(Insurance::getName)
+                .orElse("Unknown");
+    }
+
+    public Set<String> getCarInsuranceNames(List<Person> people) {
+        return people.stream()
+                .map(Person::getCar)
+                .map(optCar -> optCar.flatMap(Car::getInsurance))
+                .map(optIns -> optIns.map(Insurance::getName))
+                .flatMap(Optional::stream)
+                .collect(Collectors.toSet());
     }
 }
